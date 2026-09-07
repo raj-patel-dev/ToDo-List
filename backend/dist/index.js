@@ -49,12 +49,23 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv = __importStar(require("dotenv"));
 const promises_1 = __importDefault(require("node:dns/promises"));
+const cors_1 = __importDefault(require("cors"));
 const routes_config_1 = require("./config/routes.config");
 dotenv.config();
-promises_1.default.setServers(["1.1.1.1"]);
+try {
+    promises_1.default.setServers(["1.1.1.1"]);
+}
+catch (_a) {
+    // Ignore DNS server override errors if not permitted in host environment
+}
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+// Health check / root route for Render
+app.get("/", (_req, res) => {
+    res.status(200).json({ status: "ok", message: "Server is running smoothly" });
+});
 (0, routes_config_1.addRoutes)(app);
 function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
