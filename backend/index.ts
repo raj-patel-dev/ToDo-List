@@ -9,7 +9,6 @@ dotenv.config();
 dns.setServers(["1.1.1.1"]);
 
 const app: Express = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -25,8 +24,8 @@ async function bootstrap() {
 
         console.log("✅ Connected to MongoDB");
 
-        app.listen(PORT, () => {
-            console.log(`🚀 Server started on port ${PORT}`);
+        app.listen(5000, () => {
+            console.log(`🚀 Server started on port 5000`);
         });
     } catch (error) {
         console.error("❌ MongoDB Connection Failed");
