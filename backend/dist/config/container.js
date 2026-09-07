@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.container = void 0;
+require("reflect-metadata");
+const inversify_1 = require("inversify");
+const TaskController_1 = require("../tasks/interfaces/TaskController");
+const task_Router_1 = require("../tasks/interfaces/task.Router");
+const task_Services_1 = require("../tasks/task.Services");
+const updateTaskProviders_1 = require("../tasks/providers/updateTaskProviders");
+const getTaskProviders_1 = require("../tasks/providers/getTaskProviders");
+exports.container = new inversify_1.Container();
+exports.container.bind(TaskController_1.TaskController).toSelf().inTransientScope();
+exports.container.bind(task_Router_1.TaskRouter).toSelf().inTransientScope();
+exports.container.bind(task_Services_1.TaskServices).toSelf().inSingletonScope();
+exports.container.bind(updateTaskProviders_1.UpdateTaskProvider).toSelf().inSingletonScope();
+exports.container.bind(getTaskProviders_1.GetTasksProvider).toSelf().inSingletonScope();
